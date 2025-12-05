@@ -38,6 +38,11 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 // Use custom logger middleware early
 app.use(loggerMiddleware);
 
+// healthcheck route
+app.get("/", (req, res) => {
+  res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
+});
+
 
 // Import routes
 import folderRoutes from "./routes/folder.routes"
