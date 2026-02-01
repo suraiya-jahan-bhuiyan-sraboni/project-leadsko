@@ -22,8 +22,9 @@ export default function Cart() {
 
   const total = cart.reduce(
     (acc, item) => acc + Number(item.price) * item.quantity,
-    0
+    0,
   );
+  const totalLeads = cart.reduce((acc, item) => acc + Number(item.numbers), 0);
 
   const isCheckoutDisabled =
     cart.length === 0 || name.trim() === "" || phone.trim() === "";
@@ -35,7 +36,7 @@ export default function Cart() {
   };
 
   return (
-    <aside className="text-black lg:w-1/4 min-w-[250px] bg-gray-50 border-l border-gray-200 flex flex-col h-[calc(100vh-40px)]">
+    <aside className="relative text-black lg:w-1/4 min-w-[250px] bg-gray-50 border-l border-gray-200 flex flex-col h-[calc(100vh-40px)] max-lg:pb-38">
       {/* Header */}
       <div className="py-8 px-4 border-b bg-gray-50 sticky top-0 z-10 flex gap-2 items-center">
         <h2 className="text-xl font-bold">Cart</h2>
@@ -71,8 +72,8 @@ export default function Cart() {
         )}
       </div>
 
-      {/* Footer */}
-      <div className="p-4 border-t bg-gray-50 sticky bottom-0 z-10">
+      {/* Footer for larger screens */}
+      <div className="max-lg:hidden p-4 border-t bg-gray-50 sticky bottom-0 z-10">
         <div className="space-y-2 mb-3">
           <div className="flex items-center gap-0.5">
             <h1 className="font-semibold">Receipt Info</h1>
@@ -96,7 +97,11 @@ export default function Cart() {
 
         <div>
           <p className="flex justify-between text-lg font-bold">
-            <span>Total:</span>
+            <span>Total Leads:</span>
+            <span>{totalLeads}</span>
+          </p>
+          <p className="flex justify-between text-lg font-bold">
+            <span>Total Price:</span>
             <span>BDT {total.toFixed(2)}</span>
           </p>
           <Link href={isCheckoutDisabled ? "#" : "/checkout"}>

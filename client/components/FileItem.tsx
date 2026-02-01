@@ -17,12 +17,12 @@ export default function FileItem({ file }: FileItemProps) {
     <div className="border border-gray-200 p-1 rounded shadow hover:shadow-md transition flex justify-between items-center text-black capitalize">
       <div className="flex items-center gap-2">
         {file.icon === "pdf" ? (
-          <img src="/pdf.png" alt="" className="w-15 h-15" />
+          <img src="/pdf.png" alt="" className="w-15 h-15 max-lg:w-8 max-lg:h-8" />
         ) : (
-          <img src="/xls.png" alt="" className="w-15 h-15" />
+          <img src="/xls.png" alt="" className="w-15 h-15 max-lg:w-8 max-lg:h-8" />
         )}
         <div>
-          <p>{file.name}</p>
+          <p className="max-lg:text-sm">{file.name}</p>
           <p className="text-[12px] text-gray-500">
             Number of Leads: {file.numbers}
           </p>
@@ -36,7 +36,7 @@ export default function FileItem({ file }: FileItemProps) {
         <button
           onClick={() => addToCart(file)}
           disabled={alreadyInCart}
-          className={`px-3 py-1 rounded text-sm ${
+          className={`px-3 py-1 rounded max-lg:text-xs text-sm ${
             alreadyInCart
               ? "bg-gray-400 text-white cursor-not-allowed"
               : "bg-blue-600 text-white hover:bg-blue-700"
