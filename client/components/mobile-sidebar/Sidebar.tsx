@@ -76,6 +76,7 @@ const FolderItem = ({
             {isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
           </div>
         )}
+        {!hasSubfolders &&isOpen && <ChevronDown size={14} />}
       </div>
 
       {/* SUBFOLDERS RENDERING */}
