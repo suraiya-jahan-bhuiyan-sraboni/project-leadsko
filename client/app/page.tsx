@@ -10,6 +10,8 @@ import useSWR from "swr";
 import { fetcher } from "./lib/fetcher";
 import MarqueeCom from "@/components/marquee-com";
 import PasswordGate from "@/components/PasswordGate";
+import MobileContent from "@/components/MobileContent";
+
 
 function Content() {
   // Fetch all folders
@@ -29,7 +31,7 @@ function Content() {
   // Fetch files for selected folder
   const { data: folderFilesRes } = useSWR(
     selectedFolder ? `/app/${selectedFolder}/files` : null,
-    fetcher
+    fetcher,
   );
 
   const folderWithFiles = folderFilesRes?.data || { files: [] };
@@ -39,7 +41,7 @@ function Content() {
     (f: { _id?: string; id?: string }) => ({
       ...f,
       _id: f._id || f.id,
-    })
+    }),
   );
 
   return (
@@ -79,8 +81,13 @@ function Content() {
 export default function Page() {
   return (
     <PasswordGate>
-      <div className="md:h-[calc(100vh-40px)]  flex flex-col lg:flex-row overflow-hidden">
+      {/* for larger screen  */}
+      <div className="md:h-[calc(100vh-40px)] hidden lg:flex lg:flex-row overflow-hidden">
         <Content />
+      </div>
+      {/* for smaller screen  */}
+      <div className="lg:hidden">
+        <MobileContent/>
       </div>
       <MarqueeCom />
     </PasswordGate>
